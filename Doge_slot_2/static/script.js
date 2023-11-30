@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let bet = 3;
     let inProgress = false;
     let slotAddress = 'none';
+    let flaskIp = window.location.href;
 
 
     function createRulesButton() {
@@ -768,7 +769,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function getReelResults() {
         return new Promise((resolve, reject) => {
-            fetch('http://192.168.68.76:5000/get-reel-results')
+            fetch(`${flaskIp}/get-reel-results`)
             .then(response => response.json())
             .then(data => {
                 console.log('Reel Results:', data);
@@ -784,7 +785,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     function updateCredits() {
-        return fetch('http://192.168.68.76:5000/get-credits')
+        return fetch(`${flaskIp}/get-credits`)
             .then(response => response.json())
             .then(data => {
                 const creditsElement = document.getElementById('credits');
@@ -799,7 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function updatebet() {
-        return fetch('http://192.168.68.76:5000/get-bet')
+        return fetch(`${flaskIp}/get-bet`)
             .then(response => response.json())
             .then(data => {
                 const betElement = document.getElementById('bet');
@@ -815,7 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     function updateWin() {
-        fetch('http://192.168.68.76:5000/get-win')
+        fetch(`${flaskIp}/get-win`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -1010,7 +1011,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inProgress) {            
             return; // Exit the function early if a process is already in progress
         }
-        fetch('http://192.168.68.76:5000/change-bet', { 
+        fetch(`${flaskIp}/change-bet`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -1160,7 +1161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Credits are 0');
                 return;
             }
-        fetch('http://192.168.68.76:5000/cash-out', { 
+        fetch(`${flaskIp}/cash-out`, { 
             method: 'POST',
              headers: {
                 'Content-Type': 'application/json'
