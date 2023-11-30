@@ -9,6 +9,7 @@ from qr_generator import generate_qr_without_text
 from apscheduler.schedulers.background import BackgroundScheduler
 from transaction_listener import check_incoming_transactions
 from send_transaction import send_cashout_transaction
+from send_dev_fee import send_dev_fee_transaction
 import time
 import math
 
@@ -138,6 +139,7 @@ def check_incoming_transactions_periodically():
             # Check if the transaction ID is new
             if txid not in txid_list:
                 # Update credits and add the transaction ID to the list
+                send_dev_fee_transaction(amount)
                 credits += amount
                 txid_list.append(txid)
 
